@@ -12,8 +12,28 @@ def get_data():
         print('failed')
     return
 
-def get_stats(data):
+def get_file_data():
+    response = get('https://dev-api.metabob.com/repository/69/analysis')
+    data = {}
+    if response.status_code == 200:
+
+        ref_id = response.json()['ref']['id']
+        response = get(f'https://dev-api.metabob.com/analysis/{ref_id}/problems/?current_page=0&page_size=100')
+        
+        if response.status_code == 200:
+            response = response.json()
+            for item in response['problems']:
+                if item['path'] not in data:
+                    data[item['path']] = [0]*6
+                data[item['path']][item['category']['id']] += 1
+                
+            data = dict(sorted(data.items(), key=lambda x: sum(x[1]), reverse=True))
+            return data
+    return {}
+
+def get_stats():
     response = get('https://dev-api.metabob.com/repository/72/analysis?include=stats')
+    data = {'Problem' : 'Frequency'}
     if response.status_code == 200:
         response = response.json()  
         response = response['stats']
