@@ -7,14 +7,16 @@ app = Flask(__name__)
 
 @app.route("/", methods = ['GET', 'POST'])
 def home():
-    data = []
-    if request.method == 'GET':
-        return render_template('home.html', data = data)
-    else:
-        name = request.form.get("repo")
-        data = get_repo(name)
-        return redirect(f"/chart/{data[0][1]}")
-        # return render_template('home.html', data = data)
+	data = []
+	if request.method == 'GET':
+		return render_template('home.html', data = data)
+	else:
+		name = request.form.get("repo")
+		data = get_repo(name)
+		if not data:
+			return 1
+		return redirect(f"/chart/{data[0][1]}")
+		# return render_template('home.html', data = data)
 
 @app.route("/chart/<id>")
 def google_pie_chart(id):
@@ -25,4 +27,4 @@ def google_pie_chart(id):
 	return render_template('pie-chart.html', data=data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.run(debug=True)
