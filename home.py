@@ -1,6 +1,8 @@
 # from flask.wrappers import Response
 from requests import get
 from flask.wrappers import Response
+from werkzeug.wrappers import ResponseStreamMixin
+from run import get_report
 
 def get_problem_data(category_name):
     response = get('https://dev-api.metabob.com/repository/74/analysis?include=problems')
@@ -51,3 +53,18 @@ def get_repo(name):
         if rep["name"] == name:
             data.append([rep["name"], rep["id"]])
     return data
+
+def get_repo_ref(name):
+    data = get_repo(name)
+    repo_id = data[0][1]
+    response = get(f'https://dev-api.metabob.com/repository/{repo_id}/analysis').json()
+    ref_id = response['ref']['id']
+    return ref_id
+
+
+def analyse(repo_id, problem_id):
+    response = get(f'https://dev-api.metabob.com/repository/{repo_id}/analysis?include=problems')
+    response = response.json()
+    for problem in response["problems"]:
+        if int(problem["id"]) == int(problem_id):
+            return get_report(problem["explanation"])

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request
 from werkzeug.utils import redirect
 # from requests.api import request
-from home import get_problem_data, get_stats, get_file_data, get_repo
+from home import get_problem_data, get_stats, get_file_data, get_repo_ref, analyse
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def home():
 			input = int(input)
 		
 		if type(input) == type('str'):
-			input = get_repo(input)
+			input = get_repo_ref(input)
 			return redirect(f"/chart/{input}")
 		elif type(input) == type(0):
 			return redirect(f"/chart/{input}")
@@ -36,6 +36,11 @@ def google_pie_chart(id):
 		print(problem_list)
 		data['problem_list'] = problem_list
 		return render_template('pie-chart.html', data=data)
+
+@app.route("/analysis/<repo_id>/<problem_id>")
+def analysis(repo_id, problem_id):
+    data = analyse(repo_id, problem_id)
+    return render_template("analysis.html", data = data)
 
 if __name__ == '__main__':
 	app.run(debug=True)
