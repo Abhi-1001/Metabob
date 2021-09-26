@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
 
 	<title>Show Data on Google Pie Chart using Python Flask</title>
@@ -73,6 +73,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<div style="margin: 10px 0 0 10px;width: 1000px">
 		<h3>Show Data on Google Pie Chart using Python Flask</h3>
 
@@ -97,5 +98,77 @@
         </table>
 	</div>
 
+=======
+
+    <div class="container">
+        <div class="row"> 
+            <div>
+                <h3 class="text-center">Show Data on Google Pie Chart using Python Flask</h3>
+            </div>
+            <div class="d-grid gap-2 d-md-block" style="padding-bottom: 20px;">
+            <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch demo modal
+                </button>
+            </div>
+            
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>
+            
+            <div class="justify-content-center">
+                <table class="columns">
+                <tr>
+                    <td><div id="piechart_3d" class="google_piechart"></div></td>
+                    <td>
+                        <div class="parent">
+                            <div class="child">Header</div>
+                            {% if data.problem_list != None %}
+                                {% for item in data.problem_list %}
+                                    <div class="child">body</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="child">Footer</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="stacked_barchart" style="width: 900px; height: 500px;"></div>
+                    </td>    
+                </tr>
+                </table>
+            </div>
+
+            
+
+        </div> 
+    </div>
+    
+    
+
+
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+>>>>>>> b81bb6154f09b525f108cbfb821ef98c6d0f668b
 </body>
 </html>
