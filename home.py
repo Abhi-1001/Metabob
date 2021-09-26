@@ -12,8 +12,8 @@ def get_data():
         print('failed')
     return
 
-def get_file_data():
-    response = get('https://dev-api.metabob.com/repository/69/analysis')
+def get_file_data(repo_id):
+    response = get(f'https://dev-api.metabob.com/repository/{repo_id}/analysis')
     data = {}
     if response.status_code == 200:
 
@@ -31,8 +31,8 @@ def get_file_data():
             return data
     return {}
 
-def get_stats():
-    response = get('https://dev-api.metabob.com/repository/72/analysis?include=stats')
+def get_stats(repo_id):
+    response = get(f'https://dev-api.metabob.com/repository/{repo_id}/analysis?include=stats')
     data = {'Problem' : 'Frequency'}
     if response.status_code == 200:
         response = response.json()  

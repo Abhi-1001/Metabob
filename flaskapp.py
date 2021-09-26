@@ -13,9 +13,12 @@ def new_page():
 
 @app.route("/chart")
 def google_pie_chart():
-	problems = get_file_data()
-	stats = get_stats()
+	repo_id = 70
+	problems = get_file_data(repo_id)
+	stats = get_stats(repo_id)
 	data = {"problems": problems, "stats": stats}
+	for key, values in problems.items():
+		print(key, values)
 	return render_template('pie-chart.html', data=data)
 
 if __name__ == '__main__':
