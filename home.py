@@ -50,3 +50,17 @@ def get_stats(repo_id):
     else:
         return {}
 
+
+
+from flask.wrappers import Response
+from requests import get
+
+def get_repo(name):
+    i = 0
+    data = []
+    response = get(f'https://dev-api.metabob.com/repositories/?current_page=0&page_size=100')
+    response = response.json()
+    for rep in response:
+        if rep["name"] == name:
+            data.append([rep["name"], rep["id"]])
+    return data
