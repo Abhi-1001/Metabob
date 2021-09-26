@@ -29,9 +29,9 @@ def google_pie_chart(id):
 		return render_template('pie-chart.html', data=data)
 	else:
 		json_data = request.form.get('json_data')
-		problem_list = get_problem_data(json_data)
-		print(problem_list)
+		problem_list = get_problem_data(json_data, id)
 		data['problem_list'] = problem_list
+		print(data['problem_list'])
 		return render_template('pie-chart.html', data=data)
 
 if __name__ == '__main__':

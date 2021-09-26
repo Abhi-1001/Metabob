@@ -1,8 +1,8 @@
 # from flask.wrappers import Response
 from requests import get
 
-def get_problem_data(category_name):
-    response = get('https://dev-api.metabob.com/repository/74/analysis?include=problems')
+def get_problem_data(category_name, id):
+    response = get(f'https://dev-api.metabob.com/repository/{id}/analysis?include=problems')
     if response.status_code == 200:
         problem_list = response.json()['problems']
         problems = []

@@ -51,16 +51,15 @@
             }
 
             var piechart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-            google.visualization.events.addListener(piechart, 'select', selectHandler);
             function selectHandler() {
                 var selection = piechart.getSelection()[0];
                 var problem_name = piechart_data.getValue(selection.row, 0);
-                var id = {{data.id}}
-                $.post("/chart/<id>",  {
+                var id = {{data.id}};
+                $.post(`/chart/${id}`,  {
                     json_data: problem_name
                 });
-                alert(problem_name)
             }
+            google.visualization.events.addListener(piechart, 'select', selectHandler);
             piechart.draw(piechart_data, piechart_options);
 
             var barchart = new google.visualization.BarChart(document.getElementById('stacked_barchart'));
@@ -81,7 +80,9 @@
                     <div class="child">Header</div>
                     {% if data.problem_list != None %}
                         {% for item in data.problem_list %}
-                            <div class="child">body</div>
+                            <div class="child">
+                                <ul>{{item[0]}}</ul>
+                            </div>
                         {% endfor %}
                     {% endif %}
                     <div class="child">Footer</div>
@@ -93,27 +94,6 @@
         </tr>
         </table>
 	</div>
-
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Open Modal</button>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2>Modal Header</h2>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
-            </div>
-            <div class="modal-footer">
-                <h3>Modal Footer</h3>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
