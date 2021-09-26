@@ -14,24 +14,45 @@
         google.charts.load("current", {packages:["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
-            var data =  new google.visualization.DataTable();
-            data.addColumn('string', 'Problem');
-            data.addColumn('number', 'Frequency');
-            data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+            var piechart_data = google.visualization.arrayToDataTable([
+                {% for key, value in data.stats.items() %}
+                    {% if value is string %}
+                        ['{{ key }}', '{{ value }}'],
+                    {% else %}
+                        ['{{ key }}', {{ value }}],
+                    {% endif %}
+                {% endfor %}
+            ]);
 
-            {% for key, value in data.items() %}
-                data.addRow(['{{ key }}', {{ value }}, createCustomHTMLContent('{{ key }}')]);
-            {% endfor %}    
+            var barchart_data = google.visualization.arrayToDataTable([
+            ['category', 'module', 'syntax', 'performance', 'integration', 'multiprocessing',
+                'api-configuration',  { role: 'annotation' } ],
+                {% for key, value in data.problems.items() %}
+                    ['{{ key }}', {{value[0]}}, {{value[1]}}, {{value[2]}},
+                    {{value[3]}}, {{value[4]}}, {{value[5]}}, ''],
+                {% endfor %}
+            ]);
 
-            var options = {
+            var piechart_options = {
                 title: 'Problem Frequency',
                 is3D: true,
                 focusTarget: 'category',
                 tooltip: { isHtml: true, trigger: 'selection'},
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-            chart.draw(data, options);
+            var barchart_options = {
+                width: 1000,
+                height: 800,
+                legend: { position: 'top', maxLines: 3 },
+                bar: { groupWidth: '75%' },
+                isStacked: true
+            }
+
+            var piechart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            piechart.draw(piechart_data, piechart_options);
+
+            var barchart = new google.visualization.BarChart(document.getElementById('stacked_barchart'));
+            barchart.draw(barchart_data, barchart_options);
         }
 
         function createCustomHTMLContent(key) {
@@ -45,8 +66,15 @@
 <body>
 	<div style="margin: 10px 0 0 10px;width: 1000px">
 		<h3>Show Data on Google Pie Chart using Python Flask</h3>
-		
-		<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+
+        <table class="columns">
+        <tr>
+            <td><div id="piechart_3d" style="width: 900px; height: 500px;"></div></td>
+        </tr>
+        <tr>
+            <td><div id="stacked_barchart" style="width: 900px; height: 500px;"></div></td>    
+        </tr>
+        </table>
 	</div>
 
     <!-- Trigger/Open The Modal -->
