@@ -1,12 +1,25 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>Home Page</h1>
 
+<<<<<<< HEAD
     <div class="d-flex justify-content-center align-items-center col-md-12" style="height:100px;">
         <form action="{{ url_for('home')}}" method="post">
             <label for="Enter the repo name">repo_name:</label>
             <input type="text" id="repo_name" name="repo" placeholder="repo name">
             <button type="submit">Search</button>
+=======
+    <div class="container">
+        <div id="content">
+            <form class="form-inline" action="{{ url_for('home')}}" method="post">
+            <div class="input-group">
+                <input type="text" class="form-control search-form" id="repo_name" name="repo" placeholder="Repo_name or Ref_id">
+                <span class="input-group-btn">
+                    <button id="search-this" class="pull-right btn-default search-btn" type="submit">Search</button>
+                </span>
+            </div>
+            </form>
+        </div> 
+>>>>>>> f1f8315fff5719a57c7f6f5576c2675c3440b852
     </div>
-    
+
 {% endblock  %}
