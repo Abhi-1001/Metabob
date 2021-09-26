@@ -10,5 +10,5 @@ The five topic we've discovered are : -
 1) Syntax error
 2) not valid data type/ too many arguments / variable not intialized. 
 3) documentation not set/ variable property not set  
-4)function not defined, function is not returning the correct item  
-5)unable to import
+4) function not defined, function is not returning the correct item  
+5) unable to import
