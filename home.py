@@ -1,19 +1,16 @@
 # from flask.wrappers import Response
 from requests import get
 
-def get_problem_data():
-    response = get('https://dev-api.metabob.com/repository/72/analysis?include=problems')
+def get_problem_data(category_name):
+    response = get('https://dev-api.metabob.com/repository/74/analysis?include=problems')
     if response.status_code == 200:
         problem_list = response.json()['problems']
-        problems = {}
+        problems = []
         for item in problem_list:
             problem_name = item['category']['name']
-            if problem_name in problems.keys():
-                problems[problem_name].append([item['id'], item['location'], item['path'], item['explanation']])
-            else:
-                problems[problem_name] = []
-                problems[problem_name].append([item['id'], item['location'], item['path'], item['explanation']])
-        return
+            if problem_name == category_name:
+                problems.append([item['id'], item['location'], item['path'], item['explanation']])
+        return problems
     else:
         print('failed')
         return 
