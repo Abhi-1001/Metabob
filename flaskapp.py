@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for
-from home import get_stats
+from home import get_stats_data
 
 app = Flask(__name__)
 
@@ -13,9 +13,13 @@ def new_page():
 
 @app.route("/chart")
 def google_pie_chart():
-	data = {'Problem' : 'Frequency'}
-	data = get_stats(data)
+	data = {}
+	data = get_stats_data(data)
 	return render_template('pie-chart.html', data=data)
+
+@app.route("/modal")
+def modal_page():
+    return render_template('modal.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

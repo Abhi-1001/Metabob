@@ -2,45 +2,75 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+
 	<title>Show Data on Google Pie Chart using Python Flask</title>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                {% for key, value in data.items() %}
-                    {% if value is string %}
-                        ['{{ key }}', '{{ value }}'],
-                    {% else %}
-                        ['{{ key }}', {{ value }}],
-                    {% endif %}
-                {% endfor %}
-            ]);
+            var data =  new google.visualization.DataTable();
+            data.addColumn('string', 'Problem');
+            data.addColumn('number', 'Frequency');
+            data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+
+            {% for key, value in data.items() %}
+                data.addRow(['{{ key }}', {{ value }}, createCustomHTMLContent('{{ key }}')]);
+            {% endfor %}    
 
             var options = {
                 title: 'Problem Frequency',
                 is3D: true,
-                legend: 'none',
-                tooltip: { isHtml: true }
+                focusTarget: 'category',
+                tooltip: { isHtml: true, trigger: 'selection'},
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
             chart.draw(data, options);
         }
 
-        function createCustomHTMLContent() {
+        function createCustomHTMLContent(key) {
             return '<div style="padding = 5px 5px 5px 5px">' + 
-            '<p>' +  + '</p>'
+            '<button id="myBtn">' + key + '</button>'
             + '</div>';
         }
     </script>
 </head>
+
 <body>
 	<div style="margin: 10px 0 0 10px;width: 1000px">
 		<h3>Show Data on Google Pie Chart using Python Flask</h3>
 		
 		<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
 	</div>
+
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{{url_for('static', filename='main.js')}}"></script>
+
 </body>
 </html>
