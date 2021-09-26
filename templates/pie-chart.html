@@ -6,6 +6,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
 
 	<title>Show Data on Google Pie Chart using Python Flask</title>
@@ -37,17 +38,19 @@
             var piechart_options = {
                 title: 'Problem Frequency',
                 is3D: true,
-                legend: 'none',
                 focusTarget: 'category',
                 tooltip: { isHtml: true},
+                backgroundColor: 'transparent',
+                titleTextStyle: {color: '#FFFFFF'},
             };
 
             var barchart_options = {
                 width: 1000,
                 height: 800,
-                legend: { position: 'top', maxLines: 3 },
+                legend: { position: 'bottom', maxLines: 3 },
                 bar: { groupWidth: '75%' },
-                isStacked: true
+                isStacked: true,
+                backgroundColor: 'transparent',
             }
 
             var piechart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
@@ -93,27 +96,6 @@
         </tr>
         </table>
 	</div>
-
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Open Modal</button>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2>Modal Header</h2>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
-            </div>
-            <div class="modal-footer">
-                <h3>Modal Footer</h3>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>
